@@ -1,6 +1,9 @@
 package fr.univ_amu.iut.bonus10;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
@@ -36,21 +39,14 @@ public class OthelloMain extends Application {
 
   /** Point d'entrée Java standard : démarre la boucle JavaFX. */
   public static void main(String[] args) {
-    // TODO bonus 10 étape 5.1 : appeler launch(args) pour démarrer l'application.
+    launch(args);
   }
 
-  /**
-   * Méthode invoquée par JavaFX une fois la plateforme prête. C'est ici que l'on charge le FXML,
-   * construit la scène et affiche la fenêtre.
-   */
   @Override
   public void start(Stage primaryStage) throws Exception {
-    // TODO bonus 10 étape 5.2 : démarrer la fenêtre principale en quatre temps :
-    //   1. charger la vue racine : Parent racine =
-    // FXMLLoader.load(getClass().getResource("OthelloView.fxml"))
-    //   2. fixer le titre de la fenêtre : primaryStage.setTitle("Bonus 10 - Othello")
-    //   3. créer la scène avec la racine, à une taille raisonnable (par exemple 560x680) :
-    //      primaryStage.setScene(new Scene(racine, 560, 680))
-    //   4. afficher la fenêtre : primaryStage.show()
+    Parent racine = FXMLLoader.load(getClass().getResource("OthelloView.fxml"));
+    primaryStage.setTitle("Bonus 10 - Othello");
+    primaryStage.setScene(new Scene(racine, 560, 680));
+    primaryStage.show();
   }
 }

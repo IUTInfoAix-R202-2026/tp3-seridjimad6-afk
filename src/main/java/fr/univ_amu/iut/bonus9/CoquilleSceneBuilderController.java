@@ -10,6 +10,7 @@ package fr.univ_amu.iut.bonus9;
 public class CoquilleSceneBuilderController {
 
   // TODO bonus 9 : déclarer ici les champs @FXML correspondant aux fx:id donnés
-  // dans SceneBuilder, puis ajouter les handlers (onAction) associés aux MenuItem.
+  // dans SceneBuilder, puis ajouter les handlers (onAction) associés aux
+  // MenuItem.
 
 }

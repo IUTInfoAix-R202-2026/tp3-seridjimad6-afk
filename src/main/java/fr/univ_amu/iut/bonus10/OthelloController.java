@@ -1,5 +1,6 @@
 package fr.univ_amu.iut.bonus10;
 
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
@@ -19,14 +20,16 @@ import javafx.scene.layout.BorderPane;
  */
 public class OthelloController {
 
-  // TODO bonus 10 étape 4.1 : déclarer les six données membres @FXML privées, dont les noms
+  // TODO bonus 10 étape 4.1 : déclarer les six données membres @FXML privées,
+  // dont les noms
   // doivent correspondre aux fx:id du fichier OthelloView.fxml :
-  //   - racine             : BorderPane   - la racine de la scène (utile pour les tests)
-  //   - othellier          : Othellier    - le plateau de jeu (instancié par le FXML)
-  //   - labelJoueurCourant : Label        - affiche « Au tour de : ● Noir » ou « ○ Blanc »
-  //   - labelScoreNoir     : Label        - affiche « ● Noir : N »
-  //   - labelScoreBlanc    : Label        - affiche « ○ Blanc : N »
-  //   - labelFinDePartie   : Label        - affiche le message de fin de partie quand applicable
+  // - racine : BorderPane - la racine de la scène (utile pour les tests)
+  // - othellier : Othellier - le plateau de jeu (instancié par le FXML)
+  // - labelJoueurCourant : Label - affiche « Au tour de : ● Noir » ou « ○ Blanc »
+  // - labelScoreNoir : Label - affiche « ● Noir : N »
+  // - labelScoreBlanc : Label - affiche « ○ Blanc : N »
+  // - labelFinDePartie : Label - affiche le message de fin de partie quand
+  // applicable
   @FXML private BorderPane racine;
   @FXML private Othellier othellier;
   @FXML private Label labelJoueurCourant;
@@ -41,25 +44,35 @@ public class OthelloController {
    */
   @FXML
   private void initialize() {
-    // TODO bonus 10 étape 4.2 : poser les bindings de l'entête.
-    //
-    //   1. labelJoueurCourant doit afficher « Au tour de : ● Noir » (ou « ○ Blanc » ou « — »).
-    //      Utiliser Bindings.createStringBinding(() -> "Au tour de : " +
-    // libelle(othellier.getJoueurCourant()),
-    //                                            othellier.joueurCourantProperty())
-    //      puis bind sur textProperty().
-    //
-    //   2. labelScoreNoir doit afficher « ● Noir : N ». Utiliser Bindings.concat avec
-    //      "● Noir : " et Joueur.NOIR.scoreProperty().asString().
-    //
-    //   3. labelScoreBlanc : pareil avec Joueur.BLANC et le préfixe "○ Blanc : ".
-    //
-    //   4. labelFinDePartie doit afficher le message de fin seulement quand la partie est
-    //      terminée. Utiliser Bindings.when(othellier.partieTermineeProperty())
-    //                          .then(Bindings.createStringBinding(this::messageFinDePartie,
-    //                              Joueur.NOIR.scoreProperty(), Joueur.BLANC.scoreProperty()))
-    //                          .otherwise("")
-    //      puis bind sur textProperty().
+    // 1. Label joueur courant
+    labelJoueurCourant
+        .textProperty()
+        .bind(
+            Bindings.createStringBinding(
+                () -> "Au tour de : " + libelle(othellier.getJoueurCourant()),
+                othellier.joueurCourantProperty()));
+
+    // 2. Label score Noir
+    labelScoreNoir
+        .textProperty()
+        .bind(Bindings.concat("● Noir : ").concat(Joueur.NOIR.scoreProperty().asString()));
+
+    // 3. Label score Blanc
+    labelScoreBlanc
+        .textProperty()
+        .bind(Bindings.concat("○ Blanc : ").concat(Joueur.BLANC.scoreProperty().asString()));
+
+    // 4. Label fin de partie
+    labelFinDePartie
+        .textProperty()
+        .bind(
+            Bindings.when(othellier.partieTermineeProperty())
+                .then(
+                    Bindings.createStringBinding(
+                        this::messageFinDePartie,
+                        Joueur.NOIR.scoreProperty(),
+                        Joueur.BLANC.scoreProperty()))
+                .otherwise(""));
   }
 
   /**
@@ -94,7 +107,7 @@ public class OthelloController {
    */
   @FXML
   private void onNouvellePartie() {
-    // TODO bonus 10 étape 4.3 : déléguer à othellier.nouvellePartie() pour réinitialiser le jeu.
+    othellier.nouvellePartie();
   }
 
   /** Exposé pour les tests d'intégration : permet à TestFX d'accéder à l'othellier. */
