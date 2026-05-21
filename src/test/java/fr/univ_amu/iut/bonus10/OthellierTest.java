@@ -5,7 +5,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.concurrent.atomic.AtomicReference;
 import javafx.application.Platform;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -48,7 +47,6 @@ class OthellierTest {
     return resultat.get();
   }
 
-  @Disabled("Retire cette annotation pour activer le test")
   @Test
   void un_othellier_neuf_positionne_les_quatre_pions_au_centre() throws Exception {
     Othellier o = surFxThread(Othellier::new);
@@ -62,7 +60,6 @@ class OthellierTest {
     assertThat(Joueur.BLANC.getScore()).isEqualTo(2);
   }
 
-  @Disabled("Retire cette annotation pour activer le test")
   @Test
   void le_joueur_noir_dispose_de_quatre_coups_legaux_au_demarrage() throws Exception {
     Othellier o = surFxThread(Othellier::new);
@@ -74,7 +71,6 @@ class OthellierTest {
     assertThat(coordonnees).contains("2,3", "3,2", "4,5", "5,4");
   }
 
-  @Disabled("Retire cette annotation pour activer le test")
   @Test
   void jouer_en_2_3_au_demarrage_retourne_le_pion_blanc_de_3_3() throws Exception {
     Othellier o = surFxThread(Othellier::new);
@@ -96,7 +92,6 @@ class OthellierTest {
         .isEqualTo(Joueur.BLANC);
   }
 
-  @Disabled("Retire cette annotation pour activer le test")
   @Test
   void cliquer_sur_une_case_non_jouable_est_ignore_et_la_main_reste_au_meme_joueur()
       throws Exception {
@@ -114,7 +109,6 @@ class OthellierTest {
         .isEqualTo(Joueur.NOIR);
   }
 
-  @Disabled("Retire cette annotation pour activer le test")
   @Test
   void nouvelle_partie_reinitialise_le_plateau_les_scores_et_le_joueur_courant() throws Exception {
     Othellier o = surFxThread(Othellier::new);
@@ -173,7 +167,6 @@ class OthellierTest {
    * milieu) et on fait jouer NOIR en (4,0) avec un NOIR en (4,4) pour qu'il puisse capturer les
    * trois BLANC consécutifs en (4,1), (4,2), (4,3).
    */
-  @Disabled("Retire cette annotation pour activer le test")
   @Test
   void un_pion_pose_au_bout_d_une_file_retourne_tous_les_pions_adverses_encadres()
       throws Exception {
@@ -215,7 +208,6 @@ class OthellierTest {
    * (3,3) et on joue NOIR en (0,0). Cela exerce l'une des 4 directions diagonales du tableau {@code
    * DIRECTIONS} de {@link Othellier}.
    */
-  @Disabled("Retire cette annotation pour activer le test")
   @Test
   void un_pion_pose_au_bout_d_une_diagonale_retourne_les_pions_adverses_encadres()
       throws Exception {
@@ -245,7 +237,6 @@ class OthellierTest {
    * encadre deux pions BLANC sur deux axes différents (vertical descendant et horizontal droite).
    * Les deux directions doivent être retournées par le même coup.
    */
-  @Disabled("Retire cette annotation pour activer le test")
   @Test
   void un_meme_coup_retourne_les_pions_dans_plusieurs_directions_simultanement() throws Exception {
     Othellier o = surFxThread(Othellier::new);
@@ -274,7 +265,6 @@ class OthellierTest {
    * Une file qui se termine par une case <b>vide</b> avant de rencontrer un pion fermant ne doit
    * <b>rien capturer</b>. C'est la condition qui empêche les captures « ouvertes ».
    */
-  @Disabled("Retire cette annotation pour activer le test")
   @Test
   void un_coup_dont_la_file_se_termine_par_une_case_vide_ne_capture_aucun_pion() throws Exception {
     Othellier o = surFxThread(Othellier::new);
@@ -302,7 +292,6 @@ class OthellierTest {
    * fermant ne capture rien non plus. Vérifie que {@code estIndicesValides} coupe bien la
    * propagation hors plateau.
    */
-  @Disabled("Retire cette annotation pour activer le test")
   @Test
   void un_coup_dont_la_file_atteint_le_bord_sans_pion_fermant_ne_capture_aucun_pion()
       throws Exception {

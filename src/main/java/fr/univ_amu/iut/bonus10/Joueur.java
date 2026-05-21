@@ -18,20 +18,26 @@ import javafx.scene.image.Image;
  */
 public class Joueur {
 
-  // TODO bonus 10 étape 1.3 : déclarer les trois joueurs statiques publics PERSONNE, NOIR et BLANC.
-  // Les joueurs étant connus à l'avance, leur création se fait de manière statique. Vous
-  // utiliserez le constructeur (question 1.2) en lui passant le nom de fichier d'image associé :
-  //   - PERSONNE -> "vide.png"
-  //   - NOIR     -> "noir.png"
-  //   - BLANC    -> "blanc.png"
-  // Les trois fichiers vivent à côté de cette classe (paquet fr.univ_amu.iut.bonus10).
+  // TODO bonus 10 étape 1.3 : déclarer les trois joueurs statiques publics
+  // PERSONNE, NOIR et BLANC.
+  // Les joueurs étant connus à l'avance, leur création se fait de manière
+  // statique. Vous
+  // utiliserez le constructeur (question 1.2) en lui passant le nom de fichier
+  // d'image associé :
+  // - PERSONNE -> "vide.png"
+  // - NOIR -> "noir.png"
+  // - BLANC -> "blanc.png"
+  // Les trois fichiers vivent à côté de cette classe (paquet
+  // fr.univ_amu.iut.bonus10).
   public static final Joueur PERSONNE = new Joueur("vide.png");
   public static final Joueur NOIR = new Joueur("noir.png");
   public static final Joueur BLANC = new Joueur("blanc.png");
 
   // TODO bonus 10 étape 1.1 : déclarer les deux données membres privées :
-  //   - image  : de type Image, conserve l'image affichée dans les cases de l'othellier
-  //   - score  : de type IntegerProperty, initialisée à 0 via new SimpleIntegerProperty(this,
+  // - image : de type Image, conserve l'image affichée dans les cases de
+  // l'othellier
+  // - score : de type IntegerProperty, initialisée à 0 via new
+  // SimpleIntegerProperty(this,
   // "score", 0)
   private Image image;
   private final IntegerProperty score = new SimpleIntegerProperty(this, "score", 0);
@@ -41,16 +47,15 @@ public class Joueur {
    * {@link #NOIR}, {@link #BLANC} et {@link #PERSONNE}).
    */
   private Joueur(String fileName) {
-    // TODO bonus 10 étape 1.2 : initialiser le champ image en chargeant la ressource fileName via
-    // new Image(getClass().getResourceAsStream(fileName)). Cela permettra d'afficher le bon pion
-    // dans chaque case du plateau.
+    this.image = new Image(getClass().getResourceAsStream(fileName));
   }
 
   /**
    * Réinitialise à zéro les scores des deux joueurs NOIR et BLANC. À appeler en début de partie.
    */
   public static void initialiserScores() {
-    // TODO bonus 10 étape 1.7 : remettre à zéro les propriétés score de NOIR et BLANC.
+    NOIR.scoreProperty().set(0);
+    BLANC.scoreProperty().set(0);
   }
 
   /** Image du pion à dessiner sur une case appartenant à ce joueur. */
@@ -70,12 +75,12 @@ public class Joueur {
 
   /** Incrémente le score du joueur d'une unité. */
   void incrementerScore() {
-    // TODO bonus 10 étape 1.5 : incrémenter la valeur de la propriété score.
+    score.set(score.get() + 1);
   }
 
   /** Décrémente le score du joueur d'une unité. */
   void decrementerScore() {
-    // TODO bonus 10 étape 1.5 : décrémenter la valeur de la propriété score.
+    score.set(score.get() - 1);
   }
 
   /**
@@ -85,9 +90,12 @@ public class Joueur {
    * capturer.
    */
   public Joueur suivant() {
-    // TODO bonus 10 étape 1.6 : retourner BLANC si this == NOIR, NOIR si this == BLANC, sinon
-    // PERSONNE. L'identification se fait avec == car les trois joueurs sont des singletons.
-    Joueur resultat = PERSONNE;
-    return resultat;
+    if (this == NOIR) {
+      return BLANC;
+    }
+    if (this == BLANC) {
+      return NOIR;
+    }
+    return PERSONNE;
   }
 }

@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -88,12 +87,12 @@ class OthelloControllerTest {
   // Cas nominaux : pose légale + retournement (1 pion)
   // ===================================================================
 
-  @Disabled("Retire cette annotation pour activer le test")
   @Test
   @Order(1)
   void poser_un_pion_noir_legal_au_demarrage_met_a_jour_le_modele_et_la_barre_de_statut(
       FxRobot robot) {
-    // Position de départ classique : NOIR commence et joue en (2,3) pour retourner le pion
+    // Position de départ classique : NOIR commence et joue en (2,3) pour retourner
+    // le pion
     // BLANC de la case (3,3) (encadré par (2,3) et (4,3)).
     Othellier o = controller.getOthellier();
     robot.interact(() -> o.getCase(2, 3).fire());
@@ -110,13 +109,14 @@ class OthelloControllerTest {
     assertThat(labelFin(robot).getText()).as("partie en cours").isEmpty();
   }
 
-  @Disabled("Retire cette annotation pour activer le test")
   @Test
   @Order(2)
   void poser_un_pion_blanc_legal_apres_un_coup_noir_met_a_jour_le_modele_et_la_barre_de_statut(
       FxRobot robot) {
-    // On enchaîne deux coups depuis la position de départ : NOIR(2,3) puis BLANC(2,4).
-    // BLANC(2,4) capture le pion noir (3,4) (encadré par (2,4) et (4,4) qui est blanc).
+    // On enchaîne deux coups depuis la position de départ : NOIR(2,3) puis
+    // BLANC(2,4).
+    // BLANC(2,4) capture le pion noir (3,4) (encadré par (2,4) et (4,4) qui est
+    // blanc).
     Othellier o = controller.getOthellier();
     robot.interact(() -> o.getCase(2, 3).fire());
     robot.interact(() -> o.getCase(2, 4).fire());
@@ -133,11 +133,11 @@ class OthelloControllerTest {
     assertThat(labelFin(robot).getText()).as("partie en cours").isEmpty();
   }
 
-  @Disabled("Retire cette annotation pour activer le test")
   @Test
   @Order(3)
   void un_coup_qui_capture_un_seul_pion_met_a_jour_le_modele_et_les_scores(FxRobot robot) {
-    // Configuration minimale : un seul pion à retourner, pour isoler le cas "un retournement".
+    // Configuration minimale : un seul pion à retourner, pour isoler le cas "un
+    // retournement".
     Othellier o = controller.getOthellier();
     Joueur[][] config = new Joueur[Othellier.TAILLE][Othellier.TAILLE];
     config[4][0] = Joueur.NOIR;
@@ -159,7 +159,6 @@ class OthelloControllerTest {
   // Retournements par direction
   // ===================================================================
 
-  @Disabled("Retire cette annotation pour activer le test")
   @Test
   @Order(4)
   void un_coup_qui_capture_verticalement_retourne_le_pion_et_met_a_jour_les_scores(FxRobot robot) {
@@ -181,7 +180,6 @@ class OthelloControllerTest {
     assertThat(labelScoreBlanc(robot).getText()).as("score blanc = 0").contains("0");
   }
 
-  @Disabled("Retire cette annotation pour activer le test")
   @Test
   @Order(5)
   void un_coup_qui_capture_horizontalement_retourne_le_pion_et_met_a_jour_les_scores(
@@ -204,7 +202,6 @@ class OthelloControllerTest {
     assertThat(labelScoreBlanc(robot).getText()).as("score blanc = 0").contains("0");
   }
 
-  @Disabled("Retire cette annotation pour activer le test")
   @Test
   @Order(6)
   void un_coup_qui_capture_en_diagonale_retourne_les_pions_et_met_a_jour_les_scores(FxRobot robot) {
@@ -227,12 +224,13 @@ class OthelloControllerTest {
     assertThat(labelScoreBlanc(robot).getText()).as("score blanc = 0").contains("0");
   }
 
-  @Disabled("Retire cette annotation pour activer le test")
   @Test
   @Order(7)
   void un_coup_qui_capture_dans_deux_directions_met_a_jour_le_modele_et_les_scores(FxRobot robot) {
-    // Capture sur deux axes différents en un seul coup : (2,2) ferme à la fois la direction
-    // horizontale droite (capture (2,3)) et la direction verticale bas (capture (3,2)).
+    // Capture sur deux axes différents en un seul coup : (2,2) ferme à la fois la
+    // direction
+    // horizontale droite (capture (2,3)) et la direction verticale bas (capture
+    // (3,2)).
     Othellier o = controller.getOthellier();
     Joueur[][] config = new Joueur[Othellier.TAILLE][Othellier.TAILLE];
     config[2][3] = Joueur.BLANC;
@@ -258,13 +256,15 @@ class OthelloControllerTest {
   // Tours sautés (un joueur ne peut pas jouer)
   // ===================================================================
 
-  @Disabled("Retire cette annotation pour activer le test")
   @Test
   @Order(8)
   void quand_le_joueur_noir_ne_peut_pas_jouer_la_main_revient_au_joueur_blanc(FxRobot robot) {
-    // BLANC joue (0,2) : capture (0,1). Après ce coup, NOIR n'a aucun coup légal (aucun BLANC
-    // restant capturable) MAIS BLANC peut encore jouer (capture diagonale via (2,1)).
-    // Conséquence attendue : tourSuivant() saute le tour du NOIR et redonne la main au BLANC.
+    // BLANC joue (0,2) : capture (0,1). Après ce coup, NOIR n'a aucun coup légal
+    // (aucun BLANC
+    // restant capturable) MAIS BLANC peut encore jouer (capture diagonale via
+    // (2,1)).
+    // Conséquence attendue : tourSuivant() saute le tour du NOIR et redonne la main
+    // au BLANC.
     Othellier o = controller.getOthellier();
     Joueur[][] config = new Joueur[Othellier.TAILLE][Othellier.TAILLE];
     config[0][0] = Joueur.BLANC;
@@ -291,11 +291,11 @@ class OthelloControllerTest {
     assertThat(labelScoreBlanc(robot).getText()).contains("3");
   }
 
-  @Disabled("Retire cette annotation pour activer le test")
   @Test
   @Order(9)
   void quand_le_joueur_blanc_ne_peut_pas_jouer_la_main_revient_au_joueur_noir(FxRobot robot) {
-    // Scénario symétrique du précédent : NOIR joue, BLANC ne peut pas jouer, NOIR rejoue.
+    // Scénario symétrique du précédent : NOIR joue, BLANC ne peut pas jouer, NOIR
+    // rejoue.
     Othellier o = controller.getOthellier();
     Joueur[][] config = new Joueur[Othellier.TAILLE][Othellier.TAILLE];
     config[0][0] = Joueur.NOIR;
@@ -323,14 +323,16 @@ class OthelloControllerTest {
   // Fin de partie
   // ===================================================================
 
-  @Disabled("Retire cette annotation pour activer le test")
   @Test
   @Order(10)
   void quand_le_joueur_blanc_gagne_la_partie_le_message_de_fin_affiche_la_victoire_du_blanc(
       FxRobot robot) {
-    // Configuration où BLANC va capturer en un coup les deux derniers pions noirs encore en
-    // jeu. Après ce coup, il n'y a plus aucun NOIR sur le plateau ; ni l'un ni l'autre joueur
-    // ne peut donc plus capturer quoi que ce soit, et la partie se termine en faveur du blanc.
+    // Configuration où BLANC va capturer en un coup les deux derniers pions noirs
+    // encore en
+    // jeu. Après ce coup, il n'y a plus aucun NOIR sur le plateau ; ni l'un ni
+    // l'autre joueur
+    // ne peut donc plus capturer quoi que ce soit, et la partie se termine en
+    // faveur du blanc.
     Othellier o = controller.getOthellier();
     Joueur[][] config = new Joueur[Othellier.TAILLE][Othellier.TAILLE];
     config[0][0] = Joueur.BLANC;
@@ -357,12 +359,12 @@ class OthelloControllerTest {
         .contains("Blanc");
   }
 
-  @Disabled("Retire cette annotation pour activer le test")
   @Test
   @Order(11)
   void quand_le_joueur_noir_perd_la_partie_le_message_de_fin_n_annonce_pas_sa_victoire(
       FxRobot robot) {
-    // Même scénario que ci-dessus, examiné côté NOIR : score à 0, label de fin n'annonce pas
+    // Même scénario que ci-dessus, examiné côté NOIR : score à 0, label de fin
+    // n'annonce pas
     // la victoire du NOIR mais celle du BLANC.
     Othellier o = controller.getOthellier();
     Joueur[][] config = new Joueur[Othellier.TAILLE][Othellier.TAILLE];
@@ -389,7 +391,6 @@ class OthelloControllerTest {
   // Réinitialisation
   // ===================================================================
 
-  @Disabled("Retire cette annotation pour activer le test")
   @Test
   @Order(12)
   void cliquer_sur_nouvelle_partie_reinitialise_le_plateau_les_scores_et_la_barre_de_statut(
