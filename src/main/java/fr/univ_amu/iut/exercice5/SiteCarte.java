@@ -70,14 +70,19 @@ public class SiteCarte extends HBox {
    * Construit le composant en chargeant son FXML dans cet objet (qui joue à la fois le rôle de
    * racine et de contrôleur).
    */
+  /**
+   * Construit le composant en chargeant son FXML dans cet objet (qui joue à la fois le rôle de
+   * racine et de contrôleur).
+   */
   public SiteCarte() {
-    // TODO exercice 5 : assembler le FXMLLoader pour le pattern fx:root.
-    //
-    // 1. Construire un FXMLLoader avec getClass().getResource("SiteCarte.fxml").
-    // 2. Lui dire que la racine du FXML doit être CET objet : loader.setRoot(this).
-    // 3. Lui dire que le contrôleur doit être CET objet aussi : loader.setController(this).
-    // 4. Appeler loader.load() (qui peut lever IOException, à propager via RuntimeException
-    //    pour ne pas surcharger la signature du constructeur).
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("SiteCarte.fxml"));
+      loader.setRoot(this);
+      loader.setController(this);
+      loader.load();
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
   }
 
   /**
@@ -87,30 +92,29 @@ public class SiteCarte extends HBox {
    */
   @FXML
   private void initialize() {
-    // TODO exercice 5 : lier chaque label à sa propriété et installer l'écouteur du badge.
-    //
-    // 1. labelCarre.textProperty().bind(numeroCarre) -- le numéro brut, sans préfixe.
-    // 2. labelNom.textProperty().bind(nomConvivial).
-    // 3. labelNbPoints.textProperty().bind(nombrePoints.asString().concat(" points d'écoute")).
-    // 4. labelNbPassages.textProperty().bind(nombrePassages.asString().concat(" passages")).
-    // 5. Installer un écouteur sur joursDepuisDernierPassage qui appelle majBadge(...) à chaque
-    //    changement, puis appeler majBadge(...) une première fois avec la valeur courante pour
-    //    initialiser l'affichage.
+    labelCarre.textProperty().bind(numeroCarre);
+    labelNom.textProperty().bind(nomConvivial);
+    labelNbPoints.textProperty().bind(nombrePoints.asString().concat(" points d'écoute"));
+    labelNbPassages.textProperty().bind(nombrePassages.asString().concat(" passages"));
+    joursDepuisDernierPassage.addListener((obs, oldVal, newVal) -> majBadge(newVal.intValue()));
+    majBadge(joursDepuisDernierPassage.get());
   }
 
-  /**
-   * Met à jour le texte et la classe CSS du badge en fonction du nombre de jours écoulés depuis le
-   * dernier passage. La valeur {@code -1} est traitée comme "aucun passage jamais importé".
-   */
   private void majBadge(int jours) {
-    // TODO exercice 5 : implémenter la logique du badge de fraîcheur.
-    //
-    // - retirer d'abord les trois classes badge-fresh, badge-stale, badge-cold du labelBadge
-    //   (labelBadge.getStyleClass().removeAll("badge-fresh", "badge-stale", "badge-cold"))
-    // - si jours < 0 :  texte "Jamais utilisé", classe "badge-cold"
-    // - sinon si jours < 7 :  texte "Il y a Nj",  classe "badge-fresh"
-    // - sinon si jours <= 30 :  texte "Il y a Nj", classe "badge-stale"
-    // - sinon : texte "Il y a Nj", classe "badge-cold"
+    labelBadge.getStyleClass().removeAll("badge-fresh", "badge-stale", "badge-cold");
+    if (jours < 0) {
+      labelBadge.setText("Jamais utilisé");
+      labelBadge.getStyleClass().add("badge-cold");
+    } else if (jours < 7) {
+      labelBadge.setText("Il y a " + jours + "j");
+      labelBadge.getStyleClass().add("badge-fresh");
+    } else if (jours <= 30) {
+      labelBadge.setText("Il y a " + jours + "j");
+      labelBadge.getStyleClass().add("badge-stale");
+    } else {
+      labelBadge.setText("Il y a " + jours + "j");
+      labelBadge.getStyleClass().add("badge-cold");
+    }
   }
 
   // ---------------------------------------------------------------------
