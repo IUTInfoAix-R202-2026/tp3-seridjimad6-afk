@@ -18,6 +18,10 @@
 
 ## TP3 - FXML
 
+> 🎓 **Accepter le devoir TP3 sur GitHub Classroom** : 👉 **https://classroom.github.com/a/m_6Oq_Uc**
+>
+> Cela crée votre dépôt personnel `IUTInfoAix-R202-2026/tp3-votreLogin`. La marche à suivre (Classroom puis Codespace) est commune à tous les TP : voir le [TP1](https://github.com/IUTInfoAix-R202/tp1#mise-en-place).
+
 ## Objectifs de la séance
 
 ### Ce que vous saurez faire à la fin de cette séance
