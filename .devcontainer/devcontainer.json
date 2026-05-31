@@ -25,6 +25,10 @@
         "ghcr.io/devcontainers/features/github-cli:1": {}
     },
     "forwardPorts": [6080, 5901],
+    // Résolution du bureau VNC (desktop-lite) : agrandie de 1440x768
+    // (défaut) à 1920x1080 pour que les fenêtres JavaFX (jusqu'à ~900x820,
+    // ex: TP4 exercice 7) tiennent dans le noVNC sans déborder.
+    "containerEnv": { "VNC_RESOLUTION": "1920x1080x16" },
     // onCreateCommand s'exécute au moment du build de l'image devcontainer.
     // Avec les Codespace prebuilds activés, ça permet que le cache Maven soit
     // baké directement dans l'image (car les prebuilds stockent l'image, pas
