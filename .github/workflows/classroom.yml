@@ -29,12 +29,13 @@ jobs:
           # dans le step de scope (sans ça, on tomberait sur ALL à chaque push).
           fetch-depth: 0
 
-      - name: Set up JDK 25 with JavaFX
+      - name: Set up JDK 25
         uses: actions/setup-java@v5
         with:
           java-version: '25'
           distribution: 'zulu'
-          java-package: 'jdk+fx'
+          # JavaFX 26 vient des deps Maven org.openjfx ; la Headless Platform
+          # (glass.platform=Headless) est 100 % logicielle, pas besoin de jdk+fx.
           cache: maven
 
       #@@@AUTOGRADING-BEGIN@@@ (généré par update-autograding.sh, ne pas éditer à la main)
@@ -126,9 +127,9 @@ jobs:
         run: |
           echo "Scope : ${{ steps.scope.outputs.reason }}"
           if [ "${{ steps.scope.outputs.filter }}" = "ALL" ]; then
-            xvfb-run --auto-servernum ./mvnw -B test -DfailIfNoTests=false
+            ./mvnw -B test -DfailIfNoTests=false
           else
-            xvfb-run --auto-servernum ./mvnw -B test -Dtest='${{ steps.scope.outputs.filter }}' -DfailIfNoTests=false
+            ./mvnw -B test -Dtest='${{ steps.scope.outputs.filter }}' -DfailIfNoTests=false
           fi
 
 
