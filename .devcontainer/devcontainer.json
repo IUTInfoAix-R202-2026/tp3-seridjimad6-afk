@@ -13,7 +13,7 @@
             "gid": "1000"
         },
         "ghcr.io/devcontainers/features/java:1": {
-            "version": "25.fx-zulu",
+            "version": "25-zulu",
             "installMaven": "false",
             "installGradle": "false"
         },
