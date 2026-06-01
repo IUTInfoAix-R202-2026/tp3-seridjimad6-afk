@@ -1,0 +1,7 @@
+%%{init: {"htmlLabels": false, "flowchart": {"htmlLabels": false}}}%%
+flowchart LR
+    M["Modèle<br/>NuitVerification<br/>+ ObservableList&lt;Sequence&gt;"] <-->|"lit / met à jour"| C["Contrôleur<br/>QualificationController"]
+    C <-->|"@FXML / événements"| V["Vue FXML<br/>SplitPane / TableView<br/>+ panneau de détail"]
+    style M fill:#4a90d9,color:white
+    style C fill:#e8a838,color:white
+    style V fill:#7bb563,color:white

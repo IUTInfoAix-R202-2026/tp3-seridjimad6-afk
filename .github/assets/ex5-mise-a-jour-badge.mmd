@@ -1,0 +1,9 @@
+%%{init: {"htmlLabels": false, "flowchart": {"htmlLabels": false}}}%%
+flowchart LR
+    M["modèle<br/>joursDepuisDernierPassage"] -->|"ChangeListener"| C["majBadge(jours)"]
+    C -->|"removeAll / add"| S["labelBadge<br/>.getStyleClass()"]
+    S -->|"CSS"| V["apparence<br/>du badge"]
+    style M fill:#4a90d9,color:white
+    style C fill:#e8a838,color:white
+    style S fill:#8e44ad,color:white
+    style V fill:#7bb563,color:white

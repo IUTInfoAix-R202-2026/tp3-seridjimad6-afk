@@ -1,0 +1,12 @@
+%%{init: {"htmlLabels": false, "flowchart": {"htmlLabels": false}}}%%
+flowchart TB
+    P["VueAccueilController<br/>(parent)"]
+    P --> E["EnTeteController<br/>(en-tête)"]
+    P --> L["ListeSitesController<br/>(liste)"]
+    E -. "clic bouton" .-> P
+    P -. "ajouter site" .-> L
+    L -. "nouveau total" .-> P
+    P -. "mettreAJourCompteur" .-> E
+    style P fill:#4a90d9,color:white
+    style E fill:#e8a838,color:white
+    style L fill:#7bb563,color:white
