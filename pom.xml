@@ -26,18 +26,18 @@
         <!-- Plugin versions -->
         <javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
         <maven.compiler.plugin.version>3.15.0</maven.compiler.plugin.version>
-        <maven.surefire.plugin.version>3.5.5</maven.surefire.plugin.version>
+        <maven.surefire.plugin.version>3.5.6</maven.surefire.plugin.version>
         <maven.shade.plugin.version>3.6.2</maven.shade.plugin.version>
-        <spotless.maven.plugin.version>3.4.0</spotless.maven.plugin.version>
+        <spotless.maven.plugin.version>3.8.0</spotless.maven.plugin.version>
         <google.java.format.version>1.35.0</google.java.format.version>
         <git.build.hook.plugin.version>3.6.0</git.build.hook.plugin.version>
 
         <!-- Test dependencies versions -->
-        <junit.jupiter.version>6.0.3</junit.jupiter.version>
+        <junit.jupiter.version>6.1.1</junit.jupiter.version>
         <assertj.version>3.27.7</assertj.version>
         <testfx.version>4.0.18</testfx.version>
         <mockito.version>5.23.0</mockito.version>
-        <approvaltests.version>30.1.0</approvaltests.version>
+        <approvaltests.version>31.0.0</approvaltests.version>
     </properties>
 
     <dependencies>
